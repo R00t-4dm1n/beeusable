@@ -2,8 +2,12 @@ import express from 'express'
 import dotenv  from 'dotenv'
 import colors  from 'colors'
 import connectDB from './config/db.js'
+<<<<<<< HEAD
 
 import productRoutes from './routes/productRoutes.js'
+=======
+import products from './data/products.js' 
+>>>>>>> 25869d8e353b425cc656d5b97f0020c59b0de4a9
 
 dotenv.config()
 
