@@ -10,8 +10,11 @@ import Product from '../models/productModel.js'
  router.get('/', asyncHandler(async(req,res) => {
 
     const products = await Product.find({})
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 49234f1d0e2f04d7fccb11b8b9588f73cd38c55d
     res.json(products)
 }))
 // @desc Fetch single product
