@@ -7,17 +7,32 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 
 
-const Productscreen = ({ match }) => {
+
+
+
+const Productscreen = ({ match, location}) => {
     const dispatch = useDispatch()
+
+    const redirect = location.search ? location.search.split('=')[1] : '/'
 
     const productDetails = useSelector(state => state.productDetails)
     const {loading , error , product} = productDetails
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    
+    
+    console.log(userInfo)
+
+   
+
     
 
     useEffect(()=>{
         dispatch(listProductDetails(match.params.id))
         
-      }, [dispatch, match])
+      }, [dispatch, match ])
     
         
     return (
@@ -41,6 +56,7 @@ const Productscreen = ({ match }) => {
                 <ListGroup.Item>
                  Description: {product.description}
                 </ListGroup.Item>
+                
             </ListGroup>
         </Col>
         <Col md={3}>
@@ -55,7 +71,18 @@ const Productscreen = ({ match }) => {
                             <strong> ₹{product.price}</strong>
                             </Col>
                         </Row>
-                    </ListGroup.Item><ListGroup.Item>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>
+                             Category:
+                            </Col>
+                            <Col>
+                            <strong> {product.category}</strong>
+                            </Col>
+                        </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
                         <Row>
                             <Col>
                              Status:
@@ -66,9 +93,12 @@ const Productscreen = ({ match }) => {
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <Button className='btn-block' type='button' disabled={product.countInStock === 0}>
-                            Contact Seller
-                        </Button>
+                        { userInfo ? <Button className='btn-block' >{'Contact:'} {userInfo.phoneNumber}</Button> : 
+                        <Link to={redirect ? `/login?redirect=${redirect}`: '/login'}>
+                        <Button  className='btn-block' type='button' >
+                             Login to Contact Seller 
+                        </Button> </Link>}
+                        
 
                     </ListGroup.Item>
                 </ListGroup>
